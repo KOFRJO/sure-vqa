@@ -91,6 +91,14 @@ llava-SLAKE_train_iid_content_type_Size-finetune_lora_rank128_lr3e-5_seed123 (yo
 ├── trainer_state.json
 ```
 
+### Changing the Shifts
+
+You can flexibly adapt the kind of shift that you want to use for your study. Below are the options for potential shifts if you preprocess the SLAKE, OVQA, and MIMIC datasets as exlained in [this README](med_vlm_robustness/data/README.md). Green denote the shifts that we used for the fine-tuning study of our publication. Simply adapt the respective keywords in the configuration yaml files.
+
+<div align="center">
+  <img width="70%" src="med_vlm_robustness/images_doc/Shift_Options.png">
+</div>
+
 <a name="inference"></a>
 ## Inference
 To run inference, execute the `inference.py` python file located in the repository. The configurations for inference can be found in the file `config/inference/inference_defaults.yaml`. This file is used for running inference after you fine-tune a model. So, to use this configuration you must already have a folder containing your fine-tuned model in your root experiment directory. If you want to run the inference on the pretrained (not fine-tuned) model you can use the following file; `config/inference/inference_pretrained_defaults.yaml`. For this configuration you do not need to have a folder containing your model, this configuration will automatically use the path of your pretrained model weights which you should define in your `.env` file.  Note that both configurations contain example settings for you and you can change these settings easily for your own use case. 
