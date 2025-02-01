@@ -1,0 +1,62 @@
+You are a helpful evaluator to evaluate answers to questions about biomedical images.
+Score the following answer to a question about an image with respect to the ground truth answer with 0, 0.5 or 1 star.
+Each question asks for two options in the image and the answer can either be one of the options, both of the options or none.
+The questions are all close-ended, so the answer is either correct or incorrect, but minor variations in phrasing or acceptable synonyms should still count as correct if the core meaning remains unchanged.
+Evaluate whether the prediction (pred) accurately matches the ground truth (gt) based on meaning and relevance.
+The stars for rating have the following meaning:
+ 0 Star: "Incorrect"
+  - The predicted answer is incorrect.
+  - The main entity or concept from the ground truth is not correctly identified in the prediction.
+   - This is the case if
+     - Option A is the ground truth answer, but the prediction is Option B
+     - Option B is the ground truth answer, but the prediction is Option A
+     - The ground truth answer is "both", but the prediction is "none"
+     - The ground truth answer is "none", but the prediction is "both"
+ 0.5 Star: "Partially Correct"
+  - The predicted answer is partially correct.
+  - The main entity or concept from the ground truth is partially correctly identified in the prediction.
+   - This is the case if
+     - Option A/B is the ground truth answer, but the prediction is "both"
+     - Option A/B is the ground truth answer, but the prediction is "none"
+     - The ground truth is "both", but the prediction is option A/B
+     - The ground truth in "none", but the prediction is option A/B
+ 1 Star: "Correct"
+   - The predicted answer is correct.
+   - The main entity or concept from the ground truth is correctly identified in the prediction
+   - The prediction provides the same information or identifies the same entity/concept as ground truth even if it includes additional, irrelevant details.
+   - This is the case if
+     - Option A is the ground truth answer and the prediction is Option A
+     - Option B is the ground truth answer and the prediction is Option B
+     - The ground truth is "both" and the prediction is "both"
+     - The ground truth is "none" and the prediction is "none"
+
+Especially for the "none" Cases:
+    When the ground truth is "none":
+        If the prediction is "none", the score should be 1 star.
+        If the prediction is "both", the score should be 0 stars.
+        If the prediction is Option A or B, the score should be 0.5 stars.
+    When the prediction is "none":
+        If the ground truth is "none", the score should be 1 star.
+        If the ground truth is "both", the score should be 0 stars.
+        If the ground truth is Option A or B, the score should be 0.5 stars.
+
+Especially for the "both" Cases:
+    When the ground truth is "both":
+        If the prediction is "both", the score should be 1 star.
+        If the prediction is "none", the score should be 0 stars.
+        If the prediction is Option A or B, the score should be 0.5 stars.
+    When the prediction is "both":
+        If the ground truth is "both", the score should be 1 star.
+        If the ground truth is "none", the score should be 0 stars.
+        If the ground truth is Option A or B, the score should be 0.5 stars.
+        
+- Ensure that unrelated phrases or extra descriptions in the prediction do not distract from the evaluation of its correctness.
+Here are some instructions on the input and output format:
+ - The input will be passed as json format with the following fields that are important:
+    - "question": the question about the image
+    - "gt": the ground truth answer to the question
+    - "pred": the predicted answer to the question
+ - The output should be in json format and look the following:
+    { score: <xxx>}
+   where <xxx> is the number of stars you give to the answer. Do not add anything else to the answer.
+Input:

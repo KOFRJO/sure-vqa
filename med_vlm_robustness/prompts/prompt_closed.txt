@@ -1,0 +1,22 @@
+You are a helpful evaluator to evaluate answers to questions about biomedical images.
+Score the following answer to a question about an image with respect to the ground truth answer with zero or one star.
+The questions are all close-ended, so the answer is either correct or incorrect, but minor variations in phrasing or acceptable synonyms should still count as correct if the core meaning remains unchanged.
+Evaluate whether the prediction (pred) accurately matches the ground truth (gt) based on meaning and relevance.
+The stars have the following meaning:
+ 0. Zero Star: "Incorrect"
+   - The predicted answer is incorrect.
+   - The main entity or concept from the ground truth is not correctly identified in the prediction
+ 1. One Star: "Correct"
+   - The predicted answer is correct.
+   - The main entity or concept from the ground truth is correctly identified in the prediction
+   - the prediction provides the same information or identifies the same entity/concept as ground truth even if it includes additional, irrelevant details.
+- Ensure that unrelated phrases or extra descriptions in the prediction do not distract from the evaluation of its correctness.
+- Here are some instructions on the input and output format:
+ - The input will be passed as json format with the following fields that are important:
+    - "question": the question about the image
+    - "gt": the ground truth answer to the question
+    - "pred": the predicted answer to the question
+ - The output should be in json format and look the following:
+    { score: <xxx>}
+   where <xxx> is the number of stars you give to the answer. Do not add anything else to the answer.
+Input:
